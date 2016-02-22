@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+<mapping xmlns="http://castor.exolab.org"  
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://castor.exolab.org/mapping.xsd"
+         >
+  
+    <description>Mapeo para representar los xmls de informes</description>
+	
+	<class name="com.sergioescudero.model.report.BaseItem">
+		<field name="SOC_GL_REQUESTER" set-method="setRequesterHfm" get-method="getRequesterHfm" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="NOMBRE_REQUESTER" set-method="setRequesterCompanyName" get-method="getRequesterCompanyName" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="SOC_GL_REQUESTED" set-method="setRequestedHfm" get-method="getRequestedHfm" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="NOMBRE_REQUESTED" set-method="setRequestedCompanyName" get-method="getRequestedCompanyName" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="DMBTR" set-method="setDmbtr" get-method="getDmbtr" type="double">
+			<bind-xml node="element"/>
+		</field>
+		<field name="HWAER" set-method="setHwaer" get-method="getHwaer" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="NOT_POSTED" set-method="setNotPosted" get-method="isNotPosted" type="boolean">
+			<bind-xml node="element"/>
+		</field>
+		<field name="COMPLETED" set-method="setCompleted" get-method="isCompleted" type="boolean">
+			<bind-xml node="element"/>
+		</field>
+		<field name="COMPLETED_VALIDATION" set-method="setCompletedValidation" get-method="isCompletedValidation" type="boolean">
+			<bind-xml node="element"/>
+		</field>
+		<field name="CURRENCY_VAL" set-method="setCurrencyReconciliationVal" get-method="getCurrencyReconciliationVal" type="double">
+			<bind-xml node="element"/> 
+		</field>
+		<field name="CURRENCY_NAME" set-method="setCurrencyReconciliation" get-method="getCurrencyReconciliation" type="string">
+			<bind-xml node="element"/> 
+		</field>
+		<field name="INTRACO" set-method="setIntraco" get-method="getIntraco" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="CURRENCY_RECONCILIATION" set-method="setCurrencyReconciliationMap" get-method="getCurrencyReconciliationMap" collection="map">
+			<bind-xml node="element">
+				<class name="org.exolab.castor.mapping.MapItem">
+		        	<field name="key" type="java.lang.String">
+		            	<bind-xml node="attribute"/>
+		          	</field>
+		          	<field name="value" type="java.lang.Double">
+		          		<bind-xml node="attribute"/>
+		          	</field>
+		       </class>
+			</bind-xml>
+		</field>
+		
+		<field name="HFM_SUMMARY" set-method="setHfmSummaryMap" get-method="getHfmSummaryMap" collection="map">
+			<bind-xml node="element">
+				<class name="org.exolab.castor.mapping.MapItem">
+		        	<field name="key" type="java.lang.String">
+		            	<bind-xml node="element"/>
+		          	</field>
+		          	<field name="value" type="com.sergioescudero.model.report.Item">
+		          		<bind-xml node="element"/>
+		          	</field>
+		       </class>
+			</bind-xml>
+		</field>
+	</class>
+	
+	<class name="com.sergioescudero.model.report.Report" extends="com.sergioescudero.model.report.BaseItem">
+ 		<map-to xml="ZGL_INFORME" /> <!-- dentro de map-to poner: ns-uri=schema de validacion" -->
+		<field name="ID"  set-method="setId" get-method="getId"  type="string">
+  			<bind-xml node="element"/>
+		</field>
+		<field name="REPORT_SOURCE_ID"  set-method="setReportSourceId" get-method="getReportSourceId"  type="string">
+  			<bind-xml node="element"/>
+		</field>		
+		<field name="SOC_FI_REQUESTER" set-method="setRequesterCompanyId" get-method="getRequesterCompanyId" type="string">
+  			<bind-xml node="element"/>
+		</field>
+		<field name="SOC_FI_REQUESTED" set-method="setRequestedCompanyId" get-method="getRequestedCompanyId" type="string">
+  			<bind-xml node="element"/>
+		</field>
+		<field name="FECHA_CREACION" set-method="setDateCreation" get-method="getDateCreation" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="HORA_CREACION" set-method="setTimeCreation" get-method="getTimeCreation" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="ANYO" set-method="setFiscalYear" get-method="getFiscalYear" type="integer">
+			<bind-xml node="element"/>
+		</field>
+		<field name="MES" set-method="setPeriod" get-method="getPeriod" type="integer">
+			<bind-xml node="element"/>
+		</field>	
+		<field name="STATUS" set-method="setReportStatusList" get-method="getReportStatusList" type="com.sergioescudero.model.report.ReportStatus" collection="collection">
+			<bind-xml node="element" transient="true"/>
+		</field>													   
+		<field name="REQUESTER" set-method="setRequesterItems" get-method="getRequesterItems" type="com.sergioescudero.model.report.ItemList">
+  			<bind-xml node="element"/>
+		</field>
+		<field name="REQUESTED" set-method="setRequestedItems" get-method="getRequestedItems" type="com.sergioescudero.model.report.ItemList">
+			<bind-xml node="element"/>
+		</field>
+		<field name="SALDOS" set-method="setBalanceItems" get-method="getBalanceItems" type="com.sergioescudero.model.report.ItemList">
+			<bind-xml node="element"/>
+		</field>
+		<field name="PARTIDAS" set-method="setInvoiceItems" get-method="getInvoiceItems" type="com.sergioescudero.model.report.ItemList">
+			<bind-xml node="element"/>
+		</field>
+		<field name="MODIFICATION_DATE" set-method="setModificationDate" get-method="getModificationDate" type="date">
+			<bind-xml node="element" transient="true"/>
+		</field>			
+		<field name="LAST_MODIFIED_BY" set-method="setLastModifiedBy" get-method="getLastModifiedBy" type="string">
+			<bind-xml node="element" transient="true"/>
+		</field>
+		<field name="OBSERVATIONS" set-method="setObservations" get-method="getObservations" type="com.sergioescudero.model.report.Note" collection="collection">
+			<bind-xml node="element"/>
+		</field>
+		<field name="HAS_ERROR" set-method="setHasError" get-method="isHasError" type="boolean">
+			<bind-xml node="element" transient="true"/>
+		</field>
+		<field name="SUCCESS" set-method="setSuccess" get-method="isSuccess" type="boolean">
+			<bind-xml node="element" transient="true"/>
+		</field>
+		<field name="ERROR_MESSAGE" set-method="setErrorMessage" get-method="getErrorMessage" type="string">
+			<bind-xml node="element" transient="true"/>
+		</field>
+		<field name="SEND_DATE" set-method="setSendDate" get-method="getSendDate" type="date">
+			<bind-xml node="element"/>
+		</field>			
+		<field name="CLOSED_TIME" set-method="setCloseReportTime" get-method="getCloseReportTime" type="date">
+			<bind-xml node="element"/>
+		</field>
+		<field name="CLOSED" set-method="setClosed" get-method="isClosed" type="boolean">
+			<bind-xml node="element"/>
+		</field>
+		<field name="REQUESTED_MAKE_CHANGES" set-method="setRequestedMakeChanges" get-method="isRequestedMakeChanges" type="boolean">
+			<bind-xml node="element"/>
+		</field>
+		<field name="item" collection="arraylist" type="com.sergioescudero.model.report.Item" set-method="setComplexInvoiceItemList" get-method="getComplexInvoiceItemList">
+			<bind-xml node="element" location="PARTIDAS_COMPLEJAS"/>
+		</field>
+	</class>	
+	
+	<class name="com.sergioescudero.model.report.ItemList">
+		<field name="item" set-method="setList" get-method="getList" type="com.sergioescudero.model.report.Item" collection="collection">
+  			<bind-xml node="element"/>
+		</field>
+		<field name="TOTAL_ITEM_ID" set-method="setTotalItemId" get-method="getTotalItemId" type="integer">
+  			<bind-xml node="attribute"/>
+		</field>
+	</class>
+	
+	
+	<class name="com.sergioescudero.model.report.Item" extends="com.sergioescudero.model.report.BaseItem">
+		
+		<field name="COD_SOC_GL_REQUESTER" set-method="setCodSocGlRequester" get-method="getCodSocGlRequester" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="COD_SOC_GL_REQUESTED" set-method="setCodSocGlRequested" get-method="getCodSocGlRequested" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="BELNR" set-method="setBelnr" get-method="getBelnr" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="BUKRS" set-method="setBukrs" get-method="getBukrs" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="GJAHR" set-method="setGjahr" get-method="getGjahr" type="int">
+			<bind-xml node="element"/>
+		</field>
+		<field name="BUZEI" set-method="setBuzei" get-method="getBuzei" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="BLART" set-method="setBlart" get-method="getBlart" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="BLART_LTEXT" set-method="setBlartLtext" get-method="getBlartLtext" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="BLDAT" set-method="setBldat" get-method="getBldat" type="string" handler="dateHandler">
+			<bind-xml node="element"/>
+		</field>
+		<field name="BUDAT" set-method="setBudat" get-method="getBudat" type="string" handler="dateHandler1">
+			<bind-xml node="element"/>
+		</field>
+		<field name="CPUDT" set-method="setCpudt" get-method="getCpudt" type="string" handler="dateHandler2">
+			<bind-xml node="element"/>
+		</field>
+		<field name="XBLNR" set-method="setXblnr" get-method="getXblnr" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="XREF1" set-method="setXref1" get-method="getXref1" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="XREF2" set-method="setXref2" get-method="getXref2" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="XREF3" set-method="setXref3" get-method="getXref3" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="ACCOUNT" set-method="setAccount" get-method="getAccount" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="NAME1" set-method="setName1" get-method="getName1" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="TYPE" set-method="setType" get-method="getType" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="WRBTR" set-method="setWrbtr" get-method="getWrbtr" type="double">
+			<bind-xml node="element"/>
+		</field>
+		<field name="WAERS" set-method="setWaers" get-method="getWaers" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="EXT_KEY" set-method="setExtKey" get-method="getExtKey" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="CASE_TITLE" set-method="setCaseTitle" get-method="getCaseTitle" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="DIFFERENCES" set-method="setDifferences" get-method="getDifferences" type="string"> <!-- solo de INTER -->
+			<bind-xml node="element"/>
+		</field>
+		<field name="ITEM_ID" set-method="setItemId" get-method="getItemId" type="integer">
+			<bind-xml node="element"/>
+		</field>
+		
+		<field name="DIFFERENCES_REQUESTER" set-method="setDifferencesRequester" get-method="getDifferencesRequester" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="DIFFERENCES_REQUESTER_NOTE" set-method="setIntercompanyRequesterNote" get-method="getIntercompanyRequesterNote" type="com.sergioescudero.model.report.Note">
+			<bind-xml node="element"/>
+		</field>
+		
+		<field name="DIFFERENCES_REQUESTED" set-method="setDifferencesRequested" get-method="getDifferencesRequested" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="INTERCOMPANY_NOTE" set-method="setIntercompanyNote" get-method="getIntercompanyNote" type="com.sergioescudero.model.report.Note">
+			<bind-xml node="element"/>
+		</field>
+		
+		<field name="REQUESTER_REVIEW" set-method="setRequesterReview" get-method="getRequesterReview" type="string">
+			<bind-xml node="element"/>
+		</field>
+		<field name="REQUESTER_NOTE" set-method="setRequesterNote" get-method="getRequesterNote" type="com.sergioescudero.model.report.Note">
+			<bind-xml node="element"/>
+		</field>
+		
+		
+		<field name="TIMING" set-method="setTiming" get-method="getTiming" type="double">
+			<bind-xml node="element"/>
+		</field>
+		<field name="DISPUTE" set-method="setDispute" get-method="getDispute" type="double">
+			<bind-xml node="element"/>
+		</field>
+		<field name="FX" set-method="setFx" get-method="getFx" type="double">
+			<bind-xml node="element"/>
+		</field>
+		
+		
+		<field name="itemRef" set-method="setItemRef" get-method="getItemRef" type="integer">
+			<bind-xml node="element"/>
+		</field>
+		<field name="multipleRef" set-method="setMultipleRef" get-method="isMultipleRef" type="boolean">
+			<bind-xml node="element"/>
+		</field>
+	</class>
+	
+	<class name="com.sergioescudero.model.report.Note">
+		<field name="NOTE" set-method="setNote" get-method="getNote" type="string">
+  			<bind-xml node="element"/>
+		</field>
+		<field name="DATE" set-method="setDate" get-method="getDate" type="date">
+  			<bind-xml node="element"/>
+		</field>
+		<field name="SUBJECT" set-method="setSubject" get-method="getSubject" type="string">
+  			<bind-xml node="element"/>
+		</field>
+		<field name="USER" set-method="setUser" get-method="getUser" type="string">
+  			<bind-xml node="element"/>
+		</field>		
+	</class>
+
+
+	<!-- por desgracia hay que triplicar el handler, de lo contrario siempre aplicara el handler 
+	sobre el mismo campo aunque este definido para mas de uno -->
+	<field-handler name="dateHandler" class="com.sergioescudero.services.DateHandler">
+      <param name="date-format" value="yyyy-MM-dd"/>
+   </field-handler>
+   	<field-handler name="dateHandler1" class="com.sergioescudero.services.DateHandler">
+      <param name="date-format" value="yyyy-MM-dd"/>
+   </field-handler>
+   	<field-handler name="dateHandler2" class="com.sergioescudero.services.DateHandler">
+      <param name="date-format" value="yyyy-MM-dd"/>
+   </field-handler>
+   
+</mapping>

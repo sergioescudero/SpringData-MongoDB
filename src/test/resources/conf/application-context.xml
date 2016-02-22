@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+
+	<context:component-scan base-package="com.sergioescudero">
+		<context:include-filter type="regex"
+			expression="org.springframework.stereotype.*" />
+	</context:component-scan>
+	
+	<bean id="utilsService" class="com.sergioescudero.services.UtilsService">
+		<property name="unmarshaller" ref="genericUnmarshaller" />
+	</bean>
+
+	<bean id="xmlReportParser" class="com.sergioescudero.parser.XmlReportParser">
+		<property name="xmlContextFactoryBean" ref="castorXMLContextFactoryBean"></property>
+	</bean>
+
+	<bean id="castorXMLContextFactoryBean"
+		class="com.sergioescudero.parser.CastorXMLContextFactoryBean">
+		<property name="xmlContextUnMarshaller" ref="xmlContext" />
+		<property name="xmlContextMarshaller" ref="xmlContext" />
+		<property name="validation" value="false" />
+		<property name="suppressXSIType" value="true" />
+		<property name="suppressNamespaces" value="true" />
+		<property name="encoding" value="UTF-8" />
+		<property name="rootElement" value="ZGL_INFORME" />
+	</bean>
+
+
+	<bean id="genericMarshaller" class="org.castor.spring.xml.CastorMarshallerFactoryBean">
+		<property name="xmlContext" ref="xmlContext" />
+		<property name="rootElement" value="ZGL_INFORME" />
+		<property name="encoding" value="UTF-8" />
+		<property name="suppressNamespaces" value="true" />
+		<property name="suppressXSIType" value="true" />
+	</bean>
+
+	<bean id="genericUnmarshaller" class="org.castor.spring.xml.CastorUnmarshallerFactoryBean">
+		<property name="xmlContext" ref="xmlContext" />
+	</bean>
+
+	<bean id="xmlContext" class="org.castor.spring.xml.XMLContextFactoryBean">
+		<property name="castorProperties" ref="castorProperties" />
+		<property name="mappingLocations">
+			<list>
+				<value>informes-mapping.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<util:properties id="castorProperties"
+		location="classpath:castor-properties.properties" />
+
+</beans>
