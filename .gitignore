@@ -3,3 +3,4 @@
 org.eclipse.jdt.core.prefs
 org.eclipse.m2e.core.prefs
 target
+src/test/resources/xml
