@@ -64,7 +64,7 @@ public class ReportAsDocumentTest {
 			Report report = utilService.loadReportFromResource(ficheroXML);
 			long fin = System.currentTimeMillis();
 
-			System.out.println("Tiempo empleado para cargar fichero " + ficheroXML.getName() + " de " + ficheroXML.length() / (1024 * 1024) + " MB.:"
+			System.out.println("Tiempo empleado para cargar fichero (XML -> Report) " + ficheroXML.getName() + " de " + ficheroXML.length() / (1024 * 1024) + " MB.:"
 					+ (fin - inicio) / 1000 + " segundos");
 
 			long noBytes = MemoryUtil.memoryUsageOf(report);
