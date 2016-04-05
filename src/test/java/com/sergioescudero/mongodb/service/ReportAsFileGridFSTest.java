@@ -73,11 +73,13 @@ public class ReportAsFileGridFSTest {
 			long inicio = System.currentTimeMillis();
 			Report report = utilService.loadReportFromResource(ficheroXML);
 			long fin = System.currentTimeMillis();
-
+			
+			System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------");
+			
 			System.out.println("Tiempo empleado para cargar fichero (XML -> Report)" + ficheroXML.getName() + " de " + ficheroXML.length() / (1024 * 1024) + " MB.:"
-					+ (fin - inicio) / 1000 + " segundos");
+					+ (fin - inicio)  + " ms.");
 
-			long noBytes = MemoryUtil.memoryUsageOf(report);
+			long noBytes = MemoryUtil.deepMemoryUsageOf(report);
 			System.out.println("Tamaño en memoria " + noBytes / (1024 * 1024) + " MB");
 
 			// conversión a inputstream
@@ -90,7 +92,7 @@ public class ReportAsFileGridFSTest {
 			InputStream is = new ByteArrayInputStream(baos.toByteArray());
 			fin = System.currentTimeMillis();
 			System.out.println("Tiempo empleado para meter objeto en fichero " + ficheroXML.getName() + " de " + ficheroXML.length() / (1024 * 1024)
-					+ " MB.:" + (fin - inicio) / 1000 + " segundos");
+					+ " MB.:" + (fin - inicio)  + " ms.");
 
 			DBObject metaData = new BasicDBObject();
 			metaData.put("id", report.getId());
@@ -102,7 +104,7 @@ public class ReportAsFileGridFSTest {
 			fin = System.currentTimeMillis();
 
 			System.out.println("Tiempo empleado para guardar Report en MongoDB " + ficheroXML.getName() + " de " + ficheroXML.length()
-					/ (1024 * 1024) + " MB.:" + (fin - inicio) / 1000 + " segundos");
+					/ (1024 * 1024) + " MB.:" + (fin - inicio)  + " ms.");
 
 		}
 
@@ -120,7 +122,7 @@ public class ReportAsFileGridFSTest {
 		List<GridFSDBFile> result = gridOperations.find(new Query().addCriteria(Criteria.where("metadata.id").is(idFichero)));
 		long fin = System.currentTimeMillis();
 
-		System.out.println("Tiempo empleado en leer de MongoDB: " + (fin - inicio) / 1000 + " segundos");
+		System.out.println("Tiempo empleado en leer de MongoDB: " + (fin - inicio)  + " ms.");
 
 		for (GridFSDBFile file : result) {
 

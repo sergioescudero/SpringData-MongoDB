@@ -67,7 +67,7 @@ public class ReportAsDocumentTest {
 			System.out.println("Tiempo empleado para cargar fichero (XML -> Report) " + ficheroXML.getName() + " de " + ficheroXML.length() / (1024 * 1024) + " MB.:"
 					+ (fin - inicio) / 1000 + " segundos");
 
-			long noBytes = MemoryUtil.memoryUsageOf(report);
+			long noBytes = MemoryUtil.deepMemoryUsageOf(report);
 			System.out.println("Tamaño en memoria " + noBytes / (1024 * 1024) + " MB");
 
 			ReportData rd = new ReportData();
